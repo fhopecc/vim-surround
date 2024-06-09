@@ -1,0 +1,14 @@
+" test/test_replace.vader
+Before:
+  so plugin\surround.vim
+  call setcursorcharpos(1, 15)
+
+Given:
+  There is a (parenthesys).
+
+Execute:
+  normal ds
+  AssertEqual getcursorcharpos(), [0, 1, 15, 0, 15]
+
+Expect:
+  There is a parenthesys.

@@ -7,9 +7,11 @@ function! surround#delete_surround_symbol() abort
     " 使用 Python 函數處理緩衝區內容
     python3 << EOF
 import vim
-content = vim.eval('l:content')
+content = vim.eval('content')
 最近環繞符號 = 取最近環繞符號(content)
 命令字串 = r"s/" + 最近環繞符號[0] +"\(.*\)" + 最近環繞符號[1] + r"/\1"
 vim.command(命令字串)
 EOF
+    call setcursorcharpos(line_number, col_number)
 endfunction
+nmap ds :call surround#delete_surround_symbol()<cr>
