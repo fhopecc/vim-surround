@@ -4,6 +4,11 @@
 # install 
 PlugInstall fhopecc/vim-surround
 
-# syntax 
+# command 
 
+command function
+------- --------
+ds      delete the surround symbols.
 
+Ex.
+    There is a (parenthesys). -[ds]-> There is a parenthesys.
