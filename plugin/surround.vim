@@ -14,4 +14,4 @@ vim.command(命令字串)
 EOF
     call setcursorcharpos(line_number, col_number)
 endfunction
-nmap ds :call surround#delete_surround_symbol()<cr>
+nmap dss :call surround#delete_surround_symbol()<cr>
