@@ -17,9 +17,8 @@ endfunction
 nmap dss :call surround#delete_surround_symbol()<cr>
 
 " 定義一個函數，在插入模式中插入括號並將光標移到中間
-function! InsertParentheses()
-    " 插入括號
-    call feedkeys("()<Left>")
-endfunction
-" 映射左括號按鍵到自訂函數
-inoremap ( <C-R>=InsertParentheses()<CR>
+" function! InsertParentheses()
+"     " 插入括號
+" endfunction
+" " 映射左括號按鍵到自訂函數
+" inoremap ( <C-R>=InsertParentheses()<CR>
