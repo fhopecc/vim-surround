@@ -1,10 +1,9 @@
-py3 from zhongwen.text import 取最近環繞符號
-" ds -> 刪除最近一個環繞符號
-function! surround#delete_surround_symbol() abort
+py3 from zhongwen.text import 取最近環繞符號, 插入環繞符號
+" dss 刪除最近一個環繞符號
+function! surround#delete_surround() abort
     let [bufnum, line_number, col_number; rest] = getcursorcharpos()
     let curline = strcharpart(getline(line_number), 0, col_number)
     let content = curline
-    " 使用 Python 函數處理緩衝區內容
     python3 << EOF
 import vim
 content = vim.eval('content')
@@ -12,13 +11,20 @@ content = vim.eval('content')
 命令字串 = r"s/" + 最近環繞符號[0] +"\(.*\)" + 最近環繞符號[1] + r"/\1"
 vim.command(命令字串)
 EOF
-    call setcursorcharpos(line_number, col_number)
+    setcursorcharpos(line_number, col_number)
 endfunction
 nmap dss :call surround#delete_surround_symbol()<cr>
 
-" 定義一個函數，在插入模式中插入括號並將光標移到中間
-" function! InsertParentheses()
-"     " 插入括號
-" endfunction
-" " 映射左括號按鍵到自訂函數
-" inoremap ( <C-R>=InsertParentheses()<CR>
+function! surround#insert_surround(surround)
+    let [bufnum, line_number, col_number; rest] = getcursorcharpos()
+    let curline = getline(line_number)
+    python3 << EOF
+import vim
+curline = vim.eval('curline')
+col_number = int(vim.eval('col_number'))
+surround = vim.eval('a:surround')
+結果列 = 插入環繞符號(curline, surround, col_number)
+EOF
+    call setline(line_number, py3eval('結果列'))
+endfunction
+nmap ysw( :call surround#insert_surround('(')<cr>

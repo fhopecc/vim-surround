@@ -4,11 +4,15 @@ Before:
   call setcursorcharpos(1, 15)
 
 Given:
-  There is a (parenthesys).
+  delete (the [neareast surround]). 
+  enclose this word in parentheses.
 
 Execute:
   normal dss
   AssertEqual getcursorcharpos(), [0, 1, 15, 0, 15]
+  normal j
+  normal ysw(
 
 Expect:
-  There is a parenthesys.
+  delete (the neareast surround).
+  enclose this w(ord) in parentheses.
