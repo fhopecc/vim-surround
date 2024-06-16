@@ -11,7 +11,7 @@ content = vim.eval('content')
 命令字串 = r"s/" + 最近環繞符號[0] +"\(.*\)" + 最近環繞符號[1] + r"/\1"
 vim.command(命令字串)
 EOF
-    setcursorcharpos(line_number, col_number)
+    setcursorcharpos(line_number, col_number-1)
 endfunction
 nmap dss :call surround#delete_surround_symbol()<cr>
 
