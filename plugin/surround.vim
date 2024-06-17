@@ -27,4 +27,6 @@ surround = vim.eval('a:surround')
 EOF
     call setline(line_number, py3eval('結果列'))
 endfunction
+nmap ysw" :call surround#insert_surround('"')<cr>
 nmap ysw( :call surround#insert_surround('(')<cr>
+nmap ysw{ :call surround#insert_surround('{')<cr>

@@ -19,6 +19,9 @@ function! Test()
     normal dss
     call assert_equal('日期欄位', getline(1))
     call assert_equal([0, 1, 1, 0, 3], getcursorcharpos())
+    normal ysa"
+    call assert_equal("日期欄位", getline(1))
+    call assert_equal([0, 1, 1, 0, 3], getcursorcharpos())
 endfunction
 
 function! Teardown()
