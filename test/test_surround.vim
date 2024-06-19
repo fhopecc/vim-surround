@@ -4,7 +4,7 @@
 "
 
 let s:testee = fnamemodify(expand('<sfile>:p:h'), ':h') . '\plugin\surround.vim'
-
+execute "source " . s:testee 
 let s:current_buffer = bufnr('%')
 
 " 將多行字串設置為 buffer 的內容
@@ -16,7 +16,6 @@ function! Setup()
 endfunction
 
 function! Test()
-    execute 'source ' . s:testee 
     normal l
     call assert_equal([0, 1, 2, 0], getcharpos('.'))
     normal dss
@@ -24,7 +23,12 @@ function! Test()
     call assert_equal([0, 1, 1, 0], getcharpos('.'))
     normal ysa"
     call assert_equal("日期欄位", getline(1))
-    call assert_equal([0, 1, 2, 0], getcharpos('.'))
+    call assert_equal([0, 1, 1, 0], getcharpos('.'))
+    let test_text = "'同行'有兩組'單引號'"
+    call setline(1, test_text)
+    call setcursorcharpos(1, 2)
+    normal dss
+    call assert_equal("同行有兩組'單引號'", getline(1))
 endfunction
 
 function! Teardown()

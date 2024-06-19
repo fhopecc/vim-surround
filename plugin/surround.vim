@@ -9,13 +9,12 @@ function! surround#delete_surround() abort
 import vim
 content = vim.eval('content')
 最近環繞符號 = 取最近環繞符號(content)
-命令字串 = r"s/" + 最近環繞符號[0] +"\(.*\)" + 最近環繞符號[1] + r"/\1"
+命令字串 = r"s/" + 最近環繞符號[0] +"\(.\{-}\)" + 最近環繞符號[1] + r"/\1"
 vim.command(命令字串)
 EOF
-    echom $"dss at {line_number}, {col_number}"
     call setcursorcharpos(line_number, col_number-1)
 endfunction
-nmap dss :call surround#delete_surround_symbol()<cr>
+nmap dss :call surround#delete_surround()<cr>
 
 function! surround#insert_surround(surround)
     let [bufnum, line_number, col_number; rest] = getcursorcharpos()
