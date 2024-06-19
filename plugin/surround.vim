@@ -1,5 +1,6 @@
 py3 from zhongwen.text import 取最近環繞符號, 插入環繞符號
 " dss 刪除最近一個環繞符號
+echom "surround load"
 function! surround#delete_surround() abort
     let [bufnum, line_number, col_number; rest] = getcursorcharpos()
     let curline = strcharpart(getline(line_number), 0, col_number)
@@ -11,7 +12,8 @@ content = vim.eval('content')
 命令字串 = r"s/" + 最近環繞符號[0] +"\(.*\)" + 最近環繞符號[1] + r"/\1"
 vim.command(命令字串)
 EOF
-    setcursorcharpos(line_number, col_number-1)
+    echom $"dss at {line_number}, {col_number}"
+    call setcursorcharpos(line_number, col_number-1)
 endfunction
 nmap dss :call surround#delete_surround_symbol()<cr>
 

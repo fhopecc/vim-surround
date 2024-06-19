@@ -2,8 +2,10 @@
 
 " 載入待測模組
 "
-let testee = fnamemodify(expand('<sfile>:p:h'), ':h') . '\plugin\surround.vim'
-execute 'source ' . testee 
+
+let s:testee = fnamemodify(expand('<sfile>:p:h'), ':h') . '\plugin\surround.vim'
+
+let s:current_buffer = bufnr('%')
 
 " 將多行字串設置為 buffer 的內容
 function! Setup()
@@ -14,14 +16,15 @@ function! Setup()
 endfunction
 
 function! Test()
+    execute 'source ' . s:testee 
     normal l
-    call assert_equal([0, 1, 2, 0, 2], getcursorcharpos())
+    call assert_equal([0, 1, 2, 0], getcharpos('.'))
     normal dss
     call assert_equal('日期欄位', getline(1))
-    call assert_equal([0, 1, 1, 0, 3], getcursorcharpos())
+    call assert_equal([0, 1, 1, 0], getcharpos('.'))
     normal ysa"
     call assert_equal("日期欄位", getline(1))
-    call assert_equal([0, 1, 1, 0, 3], getcursorcharpos())
+    call assert_equal([0, 1, 2, 0], getcharpos('.'))
 endfunction
 
 function! Teardown()
@@ -32,6 +35,7 @@ function! Teardown()
             echon "\n"
         endfor
     endif
+    execute 'buffer ' . s:current_buffer
 endfunction
 
 function! Run()
