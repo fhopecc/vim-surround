@@ -1,6 +1,5 @@
 py3 from zhongwen.text import 取最近環繞符號, 插入環繞符號
 " dss 刪除最近一個環繞符號
-echom "surround load"
 function! surround#delete_surround() abort
     let [bufnum, line_number, col_number; rest] = getcursorcharpos()
     let curline = strcharpart(getline(line_number), 0, col_number)
